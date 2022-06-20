@@ -29,3 +29,14 @@ steps:
       java -jar pipeline-scan.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -f /home/vsts/work/1/s/app/target/verademo.war || true
 - publish: $(System.DefaultWorkingDirectory)/results.json
   artifact: VeracodeBaseline
+
+- task: Bash@2
+  displayName: Veracode UploadAndScan
+  inputs:
+    targetType: 'inline'
+    script: | 
+      curl -sSO https://search.maven.org/remotecontent?filepath=com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.6.10.2/vosp-api-wrappers-java-22.6.10.2-dist.zip 
+      unzip -o vosp-api-wrappers-java/22.6.10.2/vosp-api-wrappers-java-22.6.10.2-dist.zip
+      java -jar ./vosp-api-wrappers-java/22.6.10.2-dist.zip -action UploadAndScan -vid=$VID -vkey=$VKEY -filepath ~/git/veradessss/app/target/verademo.war -createprofile=true -appname="Azure-verademo" -version 1337
+- publish: $(System.DefaultWorkingDirecotry)/verademo.war
+  artifact: Veracode Binaries

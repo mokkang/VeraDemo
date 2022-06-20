@@ -1,0 +1,35 @@
+     [java] Executing '/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home/bin/java' with arguments:
+'-jar'
+'/opt/veracode/VeracodeJavaAPI.jar'
+'-action'
+'UploadAndScan'
+'-vid'
+'dd8a37f63ef2ecdbdf6e806195007d0f'
+'-vkey'
+'ef67607ffd6ffad6e62382862d681b4cdb48aba354b16d57329c34a3cc912b3f9528c9b3423e5caa350496b52e5873629ab67137745523d7a609b31f4feb5952'
+'-criticality'
+'VeryHigh'
+'-createprofile'
+'true'
+'-version'
+'20220614-95647895'
+'-appname'
+'sca-verademo'
+'-filepath'
+'//Users//jmok//git//veradessss//app//target//verademo.war'
+
+The ' characters around the executable and arguments are
+not part of the command.
+     [java] [2022.06.14 09:56:48.188] Transaction ID: [23b0964b-d9a2-4503-ac72-013e2e1a6025]
+     [java] [2022.06.14 09:56:50.356] 
+     [java] [2022.06.14 09:56:50.356] Application profile "sca-verademo" (appid=1436958) was located.
+     [java] [2022.06.14 09:56:50.357] 
+     [java] [2022.06.14 09:56:50.357] Creating a new analysis with name "20220614-95647895".
+     [java] [2022.06.14 09:56:52.578] 
+     [java] [2022.06.14 09:56:52.578] * Action "UploadAndScan" returned the following message:
+     [java] [2022.06.14 09:56:52.578] * App not in state where new builds are allowed.
+     [java] [2022.06.14 09:56:52.578] 
+     [java] [2022.06.14 09:56:55.652] 
+     [java] [2022.06.14 09:56:55.652] * A scan is in progress or has failed to complete successfully. Wait for the current scan to complete or delete the failed scan from the Veracode Platform and try again.
+     [java] Java Result: 2
+UploadAndScan:  duration 8 seconds

@@ -137,6 +137,35 @@
 	<build>
 		<finalName>verademo</finalName>
 		<plugins>
+		<plugin>
+   <groupId>org.apache.maven.plugins</groupId>
+   <artifactId>maven-antrun-plugin</artifactId>
+   <version>1.7</version>
+   <executions>
+      <execution>
+         <phase>package</phase>
+         <configuration>
+            <target name="UploadAndScan" description="Turns on debug symbols, logging. Cleans, builds, uploads binaries. Starts scan">
+               <property file="veracode.properties" prefix="veracode" />
+               <!-- Create a timestamp value to use for the build id -->
+               <tstamp>
+                  <format property="current.time" pattern="yyyyMMdd-kmmssS" />
+               </tstamp>
+               <!-- Log all output to veracode.log file -->
+               <record name="veracode_${current.time}.log" loglevel="verbose" append="false" />
+               <!-- Call the Veracode wrapper to upload and scan -->
+               <java jar="/opt/veracode/VeracodeJavaAPI.jar" fork="true">
+                  <arg line=" -action ${veracode.action} -vid ${veracode.vid} -vkey ${veracode.vkey} -criticality ${veracode.criticality} 
+                  -createprofile ${veracode.createprofile} -version ${current.time} -appname ${veracode.appname} -filepath ${veracode.filepath}" />
+               </java>
+            </target>
+         </configuration>
+         <goals>
+            <goal>run</goal>
+         </goals>
+      </execution>
+   </executions>
+</plugin>        
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -148,6 +177,26 @@
 					<debuglevel>lines,vars,source</debuglevel>
 				</configuration>
 			</plugin>
+			 <plugin>
+        		    <groupId>com.srcclr</groupId>
+            		    <artifactId>srcclr-maven-plugin</artifactId>
+            		    <version>3.1.21</version>
+            <configuration>
+                <!--- Add configuration details here-->
+                
+		
+<apiToken>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjY4NDY5LCJleHAiOjE2NTUyMjkzMTcsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiI4YjlhNzQxMi0wMGExLTQ2MmEtODA4OC1hYWE4NjA0ZjY5ZTkiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.RiXNiOGZiXu-Air5SG82OZ8p3hOnE28k_b6hZ49madQjnJ_wXaJ3LZnXZiYnIWSt3NqjQz7UanCZKVtzePQRQGHxbUxF6yHl0NjIX_ZAbWQ1oc7im5CnVLAfhWyjrK_Ap1ylkZcmK1LSrJOcOwE7h7krS4e9wNYg50ZM43vJCIk</apiToken>
+	           </configuration>
+        	   <executions>
+              		 <execution>
+                   <id>srcclr-scan</id>
+                   <phase>verify</phase>
+                   <goals>
+                       <goal>scan</goal>
+                   </goals>
+               </execution>
+          </executions>
+        </plugin>
 		</plugins>
 	</build>
 </project>
