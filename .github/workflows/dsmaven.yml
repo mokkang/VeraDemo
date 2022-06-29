@@ -25,14 +25,17 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file ./app/pom.xml
     - name: Veracode Dependency Scanning
-      # You may pin to the exact commit or the version.
+      
+      #SRCCLR_API_TOKEN: ${{ SRCCLR_API_TOKEN }}
+# You may pin to the exact commit or the version.
       # uses: veracode/veracode-sca@d8ce4a08eebf1a6c5e7759c1dc53c1172a3e7e64
-      uses: veracode/veracode-sca@v1.09
-      with:
-        image: maven:3.8.6-openjdk-11
+      #uses: veracode/veracode-sca@v1.09
+      #image: maven:3.8.6-openjdk-11
+      #run: 
+       #
       # Authorization token to query and create issues
-        github_token: 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
-        SRCCLR_API_TOKEN: ${{ SRCCLR_API_TOKEN }}
+        #github_token: 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
+        
         # 
        # quick: # optional, default is false
         # Show update advisor
@@ -52,6 +55,6 @@ jobs:
         # Run the SRCCLR with the `--skip-collectors` options
        # skip-collectors: # optional, default is false
         # Run the SRCCLR with the `--allow-dirty` option
-        allow-dirty: true # optional, default is false
+        #allow-dirty: true # optional, default is false
         # Run the SRCCLR with the `--recursive` option
       #  recursive: # optional, default is false
