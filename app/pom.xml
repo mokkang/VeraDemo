@@ -154,7 +154,7 @@
                <!-- Log all output to veracode.log file -->
                <record name="veracode_${current.time}.log" loglevel="verbose" append="false" />
                <!-- Call the Veracode wrapper to upload and scan -->
-               <java jar="${{ github.workspace }}/VeracodeJavaAPI.jar" fork="true">
+               <java jar="VeracodeJavaAPI.jar" fork="true">
                   <arg line=" -action ${veracode.action} -vid ${veracode.vid} -vkey ${veracode.vkey} -criticality ${veracode.criticality} 
                   -createprofile ${veracode.createprofile} -version ${current.time} -appname ${veracode.appname} -filepath ${veracode.filepath}" />
                </java>
