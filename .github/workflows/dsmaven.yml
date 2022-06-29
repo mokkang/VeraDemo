@@ -29,7 +29,8 @@ jobs:
       # uses: veracode/veracode-sca@d8ce4a08eebf1a6c5e7759c1dc53c1172a3e7e64
       uses: veracode/veracode-sca@v1.09
       with:
-        # Authorization token to query and create issues
+        image: maven:3.8.6-openjdk-11
+      # Authorization token to query and create issues
         github_token: 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
         # 
        # quick: # optional, default is false
