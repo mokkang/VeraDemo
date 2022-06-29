@@ -24,3 +24,32 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file ./app/pom.xml
+    - name: Veracode Dependency Scanning
+      # You may pin to the exact commit or the version.
+      # uses: veracode/veracode-sca@d8ce4a08eebf1a6c5e7759c1dc53c1172a3e7e64
+      uses: veracode/veracode-sca@v1.09
+      with:
+        # Authorization token to query and create issues
+        github_token: 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
+        # 
+       # quick: # optional, default is false
+        # Show update advisor
+        #update_advisor: # optional, default is false
+        # A git URL to work with in case the scan is not for the current repository
+        #url: # optional, default is 
+        # The minimum CVSS value for vulnerability to be added as an issue
+        #min-cvss-for-issue: # optional, default is 0
+        # The maximum allowed cvss in found vulnerabilities to pass the step
+       # fail-on-cvss: # optional, default is 10
+        # An attribute to instruct the action to create an issue from found vulnerability or just simple text output
+       # create-issues: # optional, default is false
+        # A path within the repository where the build definition starts
+       # path: # optional, default is .
+        # Run the SRCCLR in debug mode
+       # debug: # optional, default is false
+        # Run the SRCCLR with the `--skip-collectors` options
+       # skip-collectors: # optional, default is false
+        # Run the SRCCLR with the `--allow-dirty` option
+        allow-dirty: true # optional, default is false
+        # Run the SRCCLR with the `--recursive` option
+      #  recursive: # optional, default is false
