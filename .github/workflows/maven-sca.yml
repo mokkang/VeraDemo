@@ -52,7 +52,7 @@ jobs:
       uses: veracode/veracode-sca@v1.09
       with:
           # Authorization token to query and create issues
-        github_token: $'{{ secret.GH_TOKEN }}
+        github_token: $'{{ secret.GH_TOKEN }}'
           # 
         quick: false # optional, default is false
           # Show update advisor
