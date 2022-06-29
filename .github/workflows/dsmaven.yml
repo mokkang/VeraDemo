@@ -32,7 +32,7 @@ jobs:
         image: maven:3.8.6-openjdk-11
       # Authorization token to query and create issues
         github_token: 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
-        SRCCLR_API_TOKEN: ${{ secret.SRCCLR_API_TOKEN }}
+        SRCCLR_API_TOKEN: ${{ SRCCLR_API_TOKEN }}
         # 
        # quick: # optional, default is false
         # Show update advisor
