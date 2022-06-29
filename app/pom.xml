@@ -154,7 +154,7 @@
                <!-- Log all output to veracode.log file -->
                <record name="veracode_${current.time}.log" loglevel="verbose" append="false" />
                <!-- Call the Veracode wrapper to upload and scan -->
-               <java jar="/opt/veracode/VeracodeJavaAPI.jar" fork="true">
+               <java jar="VeracodeJavaAPI.jar" fork="true">
                   <arg line=" -action ${veracode.action} -vid ${veracode.vid} -vkey ${veracode.vkey} -criticality ${veracode.criticality} 
                   -createprofile ${veracode.createprofile} -version ${current.time} -appname ${veracode.appname} -filepath ${veracode.filepath}" />
                </java>
@@ -185,7 +185,7 @@
                 <!--- Add configuration details here-->
                 
 		
-<apiToken>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzA1ODY5LCJleHAiOjE2NTY0ODEwNjIsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiIxNmRiNzE5OS1iM2Y1LTRiYTUtOGQ0Mi1jNTBjMjhkNWYyOTgiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.AY7FA67fLMrXXP_WoRloWTaywHAhs7ZbvvTWF2NcdDNtvGxXThTzCg-hx_VBRNm-j3DQ1B5Qtkwvo7b8-UYU5WDbSULddFar8F693f6TF2jHsVLoQt_-LjM_PXz4zeCBZ3VFy4wCooieXGe5Elk1VlV9-HPbzF0rt4fhZv9Y9ms</apiToken>
+<apiToken>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzA2NjQ3LCJleHAiOjE2NTY1MzA4ODYsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiIwYjVlYzZjOS1jNzNkLTQ4ZmYtYTk0Mi1mZjQxMzQzMTRhMWQiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.cO427t9W5JfILcHgLSQYPDtlBGz2l_A9XR-ctNWAVpxdHPBuGl12SetVxnuUPPHRwpFYeTCD7XXVKQX8YLX6RgkQcCoZLwyNfRCjb2EEtqqbitN5dkMinNw5ZgmkD-vxb8Wwm02YPqrilQQzZ15YaAT0x94y1UL6qIHGHPcoCgM</apiToken>
 	           </configuration>
         	   <executions>
               		 <execution>
