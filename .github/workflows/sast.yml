@@ -5,9 +5,6 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -31,7 +28,7 @@ jobs:
         # Artifact name
         name: verademo.war # optional, default is artifact
         # A file, directory or wildcard pattern that describes what to upload
-        path: ./app/target/
+        path: ${{ github.workspace }}/app/target/
         # The desired behavior if no files are found using the provided path.
  #   Available Options:
   #    warn: Output a warning but do not fail the action
@@ -43,25 +40,92 @@ jobs:
  #   Minimum 1 day. Maximum 90 days unless changed from the repository settings page.
 
 #        retention-days: # optional
-    - name: Veracode Upload And Scan
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        # Artifact name
+        name: verademo.war # optional
+        # Destination path
+        path: ${{ github.workspace }}/app/target/*.war # optional
+        
+        #Testing out Docker image to be used within Github action. 
+        
+    - name: into-docker
+  # You may pin to the exact commit or the version.
+  # uses: into-docker/build-action@5f29fb51706eecee2ca550837a39350d6e119b7e
+      uses: into-docker/build-action@v3
+        with:
+      # Version of the CLI tool
+      version: # optional
+      # Builder image to use
+      builder: maven:3-openjdk
+      # Docker image to build (in the format "name:tag")
+      image: maven:latest # optional
+      # Path, relative to the project root, to use for the build
+      source-path: # default is .
+      # Path to write the artifacts created in the build phase to.
+      artifacts-path: # optional
+      # Cache archive to create. If this file exists it will be used to provide cached files to the build.
+
+      cache-path: # optional
+      # Target platform to build for.
+      #platform: # optional
+      # Build profile to use
+      #profile: # optional
+      script: |
+        - export SRCCLR_API_TOKEN=$'{{ secret.SRCCLR_API_TOKEN }}'
+        - curl -sSL https://download.sourceclear.com/ci.sh | sh
+    
+   # - name: Veracode Dependency Scanning
+   #   # You may pin to the exact commit or the version.
+      # uses: veracode/veracode-sca@d8ce4a08eebf1a6c5e7759c1dc53c1172a3e7e64
+   #   uses: veracode/veracode-sca@v1.09
+   #   with:
+        # Authorization token to query and create issues
+   #     github_token: $'{{ secret.GIT_TOKEN }}'
+        # 
+        #quick: # optional, default is false
+        # Show update advisor
+        #update_advisor: # optional, default is false
+        # A git URL to work with in case the scan is not for the current repository
+        #url: # optional, default is 
+        # The minimum CVSS value for vulnerability to be added as an issue
+        #min-cvss-for-issue: # optional, default is 0
+        # The maximum allowed cvss in found vulnerabilities to pass the step
+        #fail-on-cvss: # optional, default is 10
+        # An attribute to instruct the action to create an issue from found vulnerability or just simple text output
+        #create-issues: # optional, default is false
+        # A path within the repository where the build definition starts
+        #path: # optional, default is .
+        # Run the SRCCLR in debug mode
+        #debug: # optional, default is false
+        # Run the SRCCLR with the `--skip-collectors` options
+        #skip-collectors: # optional, default is false
+        # Run the SRCCLR with the `--allow-dirty` option
+    #    allow-dirty: true # optional, default is false
+        # Run the SRCCLR with the `--recursive` option
+#        recursive: # optional, default is false
+
+        
+      #- name: Veracode Upload And Scan
       # You may pin to the exact commit or the version.
       # uses: veracode/veracode-uploadandscan-action@4cd3f8b5fba1a0511b7dc17b55d85f16ec69cbf7
-      uses: veracode/veracode-uploadandscan-action@0.2.3
-      with:
+      #  uses: veracode/veracode-uploadandscan-action@0.2.3
+      #  with:
         # appname
-        appname: VeraDemo_Jira # default is ${{ github.repository }}
+     #   appname: VeraDemo_Jira # default is ${{ github.repository }}
         # createprofile
-        createprofile: true # default is true
-        # filepath
-        filepath: ${{ github.workspace }}/app/target/verademo.war
-        # version
-        version: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }} # default is Scan from Github job: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
+      #  createprofile: true # default is true
+      # filepath
+       # filepath: ${{ github.workspace }}/app/target/verademo.war
+      # version
+       # version: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }} # default is Scan from Github job: ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
         # vid
-        vid: $'{{ secret.VERACODE_API_ID }}'
-        # vkey
-        vkey: $'{{ secret.VERACODE_API_KEY }}'
-        # true or flase
-        createsandbox: false # optional
+      #  vid: $'{{ secret.VERACODE_API_ID }}'
+       # vkey
+      #  vkey: $'{{ secret.VERACODE_API_KEY }}'
+         # true or flase
+       # createsandbox: false # optional
         # name of the sandbox
 #        sandboxname: # optional
         # wait X minutes for the scan to complete
