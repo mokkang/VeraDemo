@@ -185,7 +185,7 @@
                 <!--- Add configuration details here-->
                 
 		
-<apiToken>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjY4NDY5LCJleHAiOjE2NTUyMjkzMTcsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiI4YjlhNzQxMi0wMGExLTQ2MmEtODA4OC1hYWE4NjA0ZjY5ZTkiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.RiXNiOGZiXu-Air5SG82OZ8p3hOnE28k_b6hZ49madQjnJ_wXaJ3LZnXZiYnIWSt3NqjQz7UanCZKVtzePQRQGHxbUxF6yHl0NjIX_ZAbWQ1oc7im5CnVLAfhWyjrK_Ap1ylkZcmK1LSrJOcOwE7h7krS4e9wNYg50ZM43vJCIk</apiToken>
+<apiToken>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzA1ODY5LCJleHAiOjE2NTY0ODEwNjIsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiIxNmRiNzE5OS1iM2Y1LTRiYTUtOGQ0Mi1jNTBjMjhkNWYyOTgiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.AY7FA67fLMrXXP_WoRloWTaywHAhs7ZbvvTWF2NcdDNtvGxXThTzCg-hx_VBRNm-j3DQ1B5Qtkwvo7b8-UYU5WDbSULddFar8F693f6TF2jHsVLoQt_-LjM_PXz4zeCBZ3VFy4wCooieXGe5Elk1VlV9-HPbzF0rt4fhZv9Y9ms</apiToken>
 	           </configuration>
         	   <executions>
               		 <execution>
