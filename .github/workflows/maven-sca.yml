@@ -52,24 +52,27 @@ jobs:
   # You may pin to the exact commit or the version.
   # uses: into-docker/build-action@5f29fb51706eecee2ca550837a39350d6e119b7e
       uses: into-docker/build-action@v3
-        with:
-      # Version of the CLI tool
-      version: # optional
-      # Builder image to use
-      builder: maven:3.8.3-openjdk
-      # Docker image to build (in the format "name:tag")
-      image: maven:3.8.3-openjdk # optional
-      # Path, relative to the project root, to use for the build
-      source-path: . # default is .
-      # Path to write the artifacts created in the build phase to.
-      artifacts-path: ${{ github.workspace }}/app/target/ # optional
-      # Cache archive to create. If this file exists it will be used to provide cached files to the build.
+      with:
+        # Version of the CLI tool
+        version: 2.0 # optional
+              # Builder image to use
+        builder: maven:3.8.3-openjdk
+              # Docker image to build (in the format "name:tag")
+        image: maven:3.8.3-openjdk # optional
+            # Path, relative to the project root, to use for the build
+        source-path: . # default is .
+            # Path to write the artifacts created in the build phase to.
+        artifacts-path: ${{ github.workspace }}/app/target/ # optional
+            # Cache archive to create. If this file exists it will be used to provide cached files to the build.
 
-      cache-path: # optional
-      # Target platform to build for.
-      #platform: # optional
-      # Build profile to use
-      #profile: # optional
-      script: |
-        - export SRCCLR_API_TOKEN=$'{{ secret.SRCCLR_API_TOKEN }}'
-        - curl -sSL https://download.sourceclear.com/ci.sh | sh
+        #  cache-path: # optional
+              # Target platform to build for.
+          #platform: # optional
+          # Build profile to use
+          #profile: # optional
+      #runs:
+#    - name: SCA Script
+  #    uses: veracode/veracode-sca@1.0.9
+        script: |
+          - export SRCCLR_API_TOKEN=$'{{ secret.SRCCLR_API_TOKEN }}'
+          - curl -sSL https://download.sourceclear.com/ci.sh | sh
