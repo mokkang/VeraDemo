@@ -58,13 +58,13 @@ jobs:
       # Version of the CLI tool
       version: # optional
       # Builder image to use
-      builder: maven:3-openjdk
+      builder: maven:3.8.3-openjdk
       # Docker image to build (in the format "name:tag")
-      image: maven:latest # optional
+      image: maven:3.8.3-openjdk # optional
       # Path, relative to the project root, to use for the build
-      source-path: # default is .
+      source-path: . # default is .
       # Path to write the artifacts created in the build phase to.
-      artifacts-path: # optional
+      artifacts-path: ${{ github.workspace }}/app/target/ # optional
       # Cache archive to create. If this file exists it will be used to provide cached files to the build.
 
       cache-path: # optional
