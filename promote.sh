@@ -1,21 +1,20 @@
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 echo "			Usage: ./S2P.sh <Veracode Application Profile>  	ex: ./S2P.sh VeraDemo 						  "
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-export $1
 echo "Pull down and parse out the latest Sandbox scan through AppID to build_Id"
-appid=$(java -jar VeracodeJavaAPI.jar -action GetAppBuilds | grep $1 | tail -n 2 | head -n 1 |awk '{print $2}' |sed 's/[^0-9]*//g')
-set | grep sappid
+appid=$(java -jar VeracodeJavaAPI.jar -action GetAppBuilds | grep VeraDemo | tail -n 2 | head -n 1 |awk '{print $2}' |sed 's/[^0-9]*//g')
+#set | grep sappid
 printenv | grep sappid
 echo $appid
 echo "Get Sandboxid"
 sandboxID=$(java -jar VeracodeJavaAPI.jar -action GetSandboxList -appid=$appid -vid="$(VERACODE_API_ID)" -vkey="$(VERACODE_API_KEY)" | grep sandbox_id | awk '{print $6}' | tail -n 1 | sed 's/[^0-9]*//g')
 echo $sandboxID | awk '{print $1}'
-set | grep sandboxID
+#set | grep sandboxID
 printenv | grep sandboxID
 echo $sandboxID
 buildID=$(java -jar VeracodeJavaAPI.jar -action GetBuildList -appid $appid -sandboxid $sandboxID | grep build_id | awk '{print $2}' | tail -n 1 | sed 's/[^0-9]*//g')
 echo $buildID
-set | grep buildID
+#set | grep buildID
 printenv | grep buildID
 echo "Prep for Promotion"
 java -jar VeracodeJavaAPI.jar -action PromoteSandbox -buildid $buildID
