@@ -2,6 +2,8 @@ echo "--------------------------------------------------------------------------
 echo "			Usage: ./S2P.sh <Veracode Application Profile>  	ex: ./S2P.sh VeraDemo 						  "
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 echo "Pull down and parse out the latest Sandbox scan through AppID to build_Id"
+curl -sO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.6.10.2/vosp-api-wrappers-java-22.6.10.2.jar -O VeracodeJavaAPI.jar 
+chmod +x VeracodeJavaAPI.jar
 appid=$(java -jar VeracodeJavaAPI.jar -action GetAppBuilds | grep VeraDemo | tail -n 2 | head -n 1 |awk '{print $2}' |sed 's/[^0-9]*//g')
 #set | grep sappid
 printenv | grep sappid
