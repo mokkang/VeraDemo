@@ -16,6 +16,12 @@ echo $sandboxID | awk '{print $1}'
 set | grep sandboxID
 printenv | grep sandboxID
 echo $sandboxID
+echo "Parsing steps"
+java -jar vosp-api-wrappers-java-22.6.10.2.jar -action GetBuildList -appid $appid -sandboxid $sandboxID -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY | grep build_id | awk '{print $2}' 
+java -jar vosp-api-wrappers-java-22.6.10.2.jar -action GetBuildList -appid $appid -sandboxid $sandboxID -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY | grep build_id | awk '{print $2}' | tail -n 1 
+echo "run java -jar "
+java -jar vosp-api-wrappers-java-22.6.10.2.jar -action GetBuildList -appid $appid -sandboxid $sandboxID -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY | grep build_id | awk '{print $2}' | tail -n 1 | sed 's/[^0-9]*//g'
+echo "set.env"
 buildID=$(java -jar vosp-api-wrappers-java-22.6.10.2.jar -action GetBuildList -appid $appid -sandboxid $sandboxID -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY | grep build_id | awk '{print $2}' | tail -n 1 | sed 's/[^0-9]*//g')
 echo $buildID
 #set | grep buildID
