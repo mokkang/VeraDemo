@@ -29,6 +29,6 @@ set | grep buildID
 printenv | grep buildID
 echo "Prep for Promotion"
 java -jar vosp-api-wrappers-java-22.6.10.2.jar -action PromoteSandbox -buildid=$buildID 
-java -jar vosp-api-wrappers-java-22.6.10.2.jar -action PromoteSandbox -buildid=$buildID -appid $appid -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY
-java -jar vosp-api-wrappers-java-22.6.10.2.jar -action PromoteSandbox -buildid=$buildID -appid $appid -sandboxid $sandboxID -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY
+#java -jar vosp-api-wrappers-java-22.6.10.2.jar -action PromoteSandbox -buildid=$buildID -appid $appid -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY
+#java -jar vosp-api-wrappers-java-22.6.10.2.jar -action PromoteSandbox -buildid=$buildID -appid $appid -sandboxid $sandboxID -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY
 echo "Promoted"
