@@ -18,8 +18,8 @@ printenv | grep sandboxID
 echo $sandboxID
 buildID=$(java -jar vosp-api-wrappers-java-22.6.10.2.jar -action GetBuildList -appid $appid -sandboxid $sandboxID -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY | grep build_id | awk '{print $2}' | tail -n 1 | sed 's/[^0-9]*//g')
 echo $buildID
-set | grep buildID
-printenv | grep buildID
-echo "Prep for Promotion"
-java -jar vosp-api-wrappers-java-22.6.10.2.jar -action PromoteSandbox -buildid="$buildID" -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY
-echo "Promoted"
+#set | grep buildID
+#@printenv | grep buildID
+#echo "Prep for Promotion"
+#java -jar vosp-api-wrappers-java-22.6.10.2.jar -action PromoteSandbox -buildid="$buildID" -vid=$VERACODE_API_ID -vkey=$VERACODE_API_KEY
+#echo "Promoted"
