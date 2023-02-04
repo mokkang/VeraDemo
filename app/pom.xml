@@ -185,7 +185,7 @@
                 <!--- Add configuration details here-->
                 
 		
-<apiToken>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzA2NjQ3LCJleHAiOjE2NTY1MzA4ODYsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiIwYjVlYzZjOS1jNzNkLTQ4ZmYtYTk0Mi1mZjQxMzQzMTRhMWQiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.cO427t9W5JfILcHgLSQYPDtlBGz2l_A9XR-ctNWAVpxdHPBuGl12SetVxnuUPPHRwpFYeTCD7XXVKQX8YLX6RgkQcCoZLwyNfRCjb2EEtqqbitN5dkMinNw5ZgmkD-vxb8Wwm02YPqrilQQzZ15YaAT0x94y1UL6qIHGHPcoCgM</apiToken>
+<apiToken>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzY1MzExLCJleHAiOjE2NzU0ODg0MTYsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiIwZThiOGM2Yi04MjU4LTRmNmYtYTkwOS0xZTZiMjBlYmY2NWUiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.zLSW-Ni2toSMWgtki_bccyqv2RAnx8JMt8mF08vxen7Pisp48Sr5eFK-J57rNVp21sSr4haXdPLs-ACa2HQEa98eeOsyPjOSYNzp994yKvdE_jVIiOwTekwDK2fxKPvtxgh5ypWMEGnrGrlPxjXpF6aQwFk0dzFOnm8URNSgTRk</apiToken>
 	           </configuration>
         	   <executions>
               		 <execution>
