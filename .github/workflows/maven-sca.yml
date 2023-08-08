@@ -57,7 +57,7 @@ jobs:
         path: app/pom.xml
         #create-issues: false       
         update_advisor: false
-        allow_dirty: true
+        allow-dirty: true
         recursive: false
     #- name: Veracode Dependency Scanning
     #    # You may pin to the exact commit or the version.
