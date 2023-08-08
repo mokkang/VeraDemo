@@ -23,9 +23,9 @@ jobs:
       - name: get archive
         uses: actions/download-artifact@v3
         with:
-          name: veracode-artifact
-          path: ./veracode_artifact_directory
-      
+          name: verademo.war
+          path: ./app/target/
+          
       - name: Get the name of the downloaded files
         run: |
           artifact_file=$(ls -1 ./veracode_artifact_directory | head -n 1)
