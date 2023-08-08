@@ -1,0 +1,56 @@
+name: Build and Scan Project
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Check Project Type
+        id: check_type
+        run: |
+          if [[ -f "pom.xml" ]]; then
+            echo "Detected Java project"
+            echo "::set-output name=project_type::java"
+          elif [[ -f "package.json" ]]; then
+            echo "Detected JavaScript project"
+            echo "::set-output name=project_type::javascript"
+          else
+            echo "Unknown project type"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Set up JDK and Build with Maven
+        if: steps.check_type.outputs.project_type == 'java'
+        run: |
+          sudo apt-get install -y openjdk-11-jdk
+          sudo apt-get install -y maven
+          mvn clean package -f app/pom.xml
+
+      - name: Setup Node.js environment and Zip Project
+        if: steps.check_type.outputs.project_type == 'javascript'
+        run: |
+          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          npm install
+          zip -r project.zip . -x ./node_modules/*\
+
+      # Add steps to install the Veracode CLI and other dependencies here
+
+      - name: Upload and Scan Java Project with Veracode
+        if: steps.check_type.outputs.project_type == 'java'
+        run: |
+          # Assuming the JAR/WAR file is in the target directory
+          veracode -action UploadAndScan -appname VeraDemo -createprofile true -filepath target/*.war -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} --version github-commit
+
+      - name: Upload and Scan JavaScript Project with Veracode
+        if: steps.check_type.outputs.project_type == 'javascript'
+        run: |
+          veracode -action UploadAndScan -appname "VeraDemo" -createprofile true -filepath project.zip  -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} --version github-commit
