@@ -28,11 +28,10 @@ jobs:
         shell: bash
         continue-on-error: true
 
-      - name: Set up JDK and Build with Maven
+      - name: 'build'
         if: steps.check_type.outputs.project_type == 'java'
         run: |
-          sudo apt-get install -y openjdk-11-jdk
-          sudo apt-get install -y maven
+          sudo apt-get install -y maven 
           mvn clean package -f app/pom.xml
         continue-on-error: true
 
@@ -46,12 +45,26 @@ jobs:
         continue-on-error: true
 
       # Add steps to install the Veracode CLI and other dependencies here
-
-      - name: Upload and Scan Java Project with Veracode
+      #- name: Upload and Scan Java Project with Veracode
+      - name: save artifact
+      - uses: actions/upload-artifact@v2
+        with:
+          name: verademo.war
+          path: verademo.war
+        continue-on-error: true
+          
+          #steps:
+      - name: Retrieve artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: verademo.war
+          path: verademo.war 
+        continue-on-error: true
+      - name: CodePackage
         if: steps.check_type.outputs.project_type == 'java'
         run: |
           # Assuming the JAR/WAR file is in the target directory
-          veracode -action UploadAndScan -appname VeraDemo -createprofile true -filepath target/*.war -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} --version github-commit
+          #veracode -action UploadAndScan -appname VeraDemo -createprofile true -filepath target/*.war -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} --version github-commit
         continue-on-error: true
 
       - name: Upload and Scan JavaScript Project with Veracode
