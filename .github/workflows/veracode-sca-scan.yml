@@ -3,6 +3,7 @@ name: Veracode Software Composition Analysis
 run-name: Software Composition Analysis - ${{ github.event.client_payload.repository.name }}
 
 on:
+  push:
   repository_dispatch:
     types: [veracode-sca-scan]
     
