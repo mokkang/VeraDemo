@@ -51,10 +51,10 @@ jobs:
       
       env:
         SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
-      uses: veracode/veracode-sca@v1.08
+      uses: veracode/veracode-sca@v1.09
       with:
         github_token: ${{ secrets.GIT_TOKEN }}
-        path: app/pom.xml
+        path: ./app/
         #create-issues: false       
         update_advisor: false
         allow-dirty: true
