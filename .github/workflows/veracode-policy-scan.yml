@@ -6,9 +6,10 @@ on:
     branches: [main]
   workflow_call:
     inputs:
-      profile_name:
-        required: true
-        type: string
+      profile_name: 
+      string: VeraDemo
+#        required: true
+  #      type: string
   
 jobs:
   policy_scan:
