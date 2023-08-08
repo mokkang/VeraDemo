@@ -39,8 +39,8 @@ jobs:
           createprofile: true
           version: '${{ github.run_id }}'
           filepath: ./veracode_artifact_directory/${{ env.veracode_artifact }}
-          vid: '${{ secrets.API_ID }}'
-          vkey: '${{ secrets.API_KEY }}'
+          vid: '${{ secrets.VERACODE_API_ID }}'
+          vkey: '${{ secrets.VERACODE_API_KEY }}'
           scanpollinginterval: 30
           scantimeout: 15
         continue-on-error: true
@@ -58,8 +58,8 @@ jobs:
       - name: get policy flaws
         run: |
           cd /tmp
-          export VERACODE_API_KEY_ID=${{ secrets.API_ID }}
-          export VERACODE_API_KEY_SECRET=${{ secrets.API_KEY }}
+          export VERACODE_VERACODE_API_KEY_ID=${{ secrets.VERACODE_API_ID }}
+          export VERACODE_VERACODE_API_KEY_SECRET=${{ secrets.VERACODE_API_KEY }}
           guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=${{ github.event.client_payload.profile_name }}" | jq -r '._embedded.applications[] | select(.profile.name == "${{ github.event.client_payload.profile_name }}") | .guid')
           echo GUID: ${guid}
           total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True" | jq -r '.page.total_elements')
@@ -76,8 +76,8 @@ jobs:
             /tmp/results_url.txt
       - name: fail the pipeline for compliance
         run: |
-          export VERACODE_API_KEY_ID=${{ secrets.API_ID }}
-          export VERACODE_API_KEY_SECRET=${{ secrets.API_KEY }}
+          export VERACODE_VERACODE_API_KEY_ID=${{ secrets.VERACODE_API_ID }}
+          export VERACODE_VERACODE_API_KEY_SECRET=${{ secrets.VERACODE_API_KEY }}
           guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=${{ github.event.client_payload.profile_name }}" | jq -r '._embedded.applications[] | select(.profile.name == "${{ github.event.client_payload.profile_name }}") | .guid')
           echo GUID: ${guid}
           total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True" | jq -r '.page.total_elements')
