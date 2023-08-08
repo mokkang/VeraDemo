@@ -6,7 +6,7 @@ This project is intentionally vulnerable! It contains known vulnerabilities and 
 
 ## About
 
-Blab-a-Gag is a fairly simple forum type ssssapplication which allows:
+Blab-a-Gag is a fairly simple forum type ssssappsdsdflication which allows:
 * Users can post a one-liner joke.ioio
 * Users can follow the jokes of other users or not (listen or ignore).
 * Users can comment on other users messages (heckle).
