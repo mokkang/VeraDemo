@@ -53,7 +53,7 @@ jobs:
       uses: veracode/veracode-sca@v1.09
       with:
         github_token: ${{ secrets.GIT_TOKEN }}
-        path: "./app"
+        path: app/
         #create-issues: false       
         update_advisor: true
     #- name: Veracode Dependency Scanning
@@ -83,6 +83,5 @@ jobs:
           # Run the SRCCLR with the `--skip-collectors` options
        #   skip-collectors: # optional, default is false
           # Run the SRCCLR with the `--allow-dirty` option
-        allow-dirty: true 
           # Run the SRCCLR with the `--recursive` option
         #  recursive: # optional, default is false
