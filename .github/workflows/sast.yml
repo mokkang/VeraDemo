@@ -1,11 +1,17 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+ # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
 name: Java CI with Maven
 
 on:
   push:
-
+  pull_request:
+    branches: [main]
+  workflow_call:
+    inputs:     
+      profile_name: 
+        required: true
+        type: string
 jobs:
   build:
 
@@ -60,33 +66,33 @@ jobs:
         # Builder image to use
         builder: maven:3.8.3-openjdk
         # Docker image to build (in the format "name:tag")
-        image: maven:3.8.3-openjdk # optional
+      #  image: maven:3.8.3-openjdk # optional
         # Path, relative to the project root, to use for the build
         source-path: . # default is .
         # Path to write the artifacts created in the build phase to.
-        artifacts-path: ${{ github.workspace }}/app/target/ # optional
+        artifacts-path: ${{ github.workspace }}/app/target/verademo.war # optional
         # Cache archive to create. If this file exists it will be used to provide cached files to the build.
   
-      #  cache-path: # optional
+        cache-path: ${{ github.workspace }}/app/target/ # optional
         # Target platform to build for.
-        #platform: # optional
+        platform: VeraDe,p # optional
         # Build profile to use
-        #profile: # optional
+        profile: VeraDemo2 # optional
         script: |
           - export SRCCLR_API_TOKEN=$'{{ secret.SRCCLR_API_TOKEN }}'
           - curl -sSL https://download.sourceclear.com/ci.sh | sh
       
-   # - name: Veracode Dependency Scanning
-   #   # You may pin to the exact commit or the version.
+    - name: Veracode Dependency Scanning
+    # You may pin to the exact commit or the version.
       # uses: veracode/veracode-sca@d8ce4a08eebf1a6c5e7759c1dc53c1172a3e7e64
-   #   uses: veracode/veracode-sca@v1.09
-   #   with:
+      uses: veracode/veracode-sca@v1.09
+      with:
         # Authorization token to query and create issues
-   #     github_token: $'{{ secret.GIT_TOKEN }}'
+        github_token: $'{{ secret.GIT_TOKEN }}'
         # 
         #quick: # optional, default is false
         # Show update advisor
-        #update_advisor: # optional, default is false
+        update_advisor: true # optional, default is false
         # A git URL to work with in case the scan is not for the current repository
         #url: # optional, default is 
         # The minimum CVSS value for vulnerability to be added as an issue
@@ -96,7 +102,7 @@ jobs:
         # An attribute to instruct the action to create an issue from found vulnerability or just simple text output
         #create-issues: # optional, default is false
         # A path within the repository where the build definition starts
-        #path: # optional, default is .
+        path: ./app/ # optional, default is .
         # Run the SRCCLR in debug mode
         #debug: # optional, default is false
         # Run the SRCCLR with the `--skip-collectors` options
