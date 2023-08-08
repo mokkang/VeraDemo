@@ -34,16 +34,16 @@ jobs:
           sudo apt-get install -y openjdk-11-jdk
           sudo apt-get install -y maven
           mvn clean package -f app/pom.xml
-          continue-on-error: true
+        continue-on-error: true
 
       - name: Setup Node.js environment and Zip Project
         if: steps.check_type.outputs.project_type == 'javascript'
         run: |
           curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-          sudo apt-get install -y nodejs
+          sudo apt-get install -y node npm
           npm install
           zip -r project.zip . -x ./node_modules/*\
-          continue-on-error: true
+        continue-on-error: true
 
       # Add steps to install the Veracode CLI and other dependencies here
 
@@ -52,10 +52,10 @@ jobs:
         run: |
           # Assuming the JAR/WAR file is in the target directory
           veracode -action UploadAndScan -appname VeraDemo -createprofile true -filepath target/*.war -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} --version github-commit
-          continue-on-error: true
+        continue-on-error: true
 
       - name: Upload and Scan JavaScript Project with Veracode
         if: steps.check_type.outputs.project_type == 'javascript'
         run: |
           veracode -action UploadAndScan -appname "VeraDemo" -createprofile true -filepath project.zip  -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} --version github-commit
-          continue-on-error: true
+        continue-on-error: true
