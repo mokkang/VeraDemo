@@ -45,19 +45,29 @@ jobs:
         name: verademo.war # optional
         # Destination path
         path: ${{ github.workspace }}/app/target/*.war # optional
-        
-    - name: Veracode Dependency Scanning
-        # You may pin to the exact commit or the version.
-        # uses: veracode/veracode-sca@d8ce4a08eebf1a6c5e7759c1dc53c1172a3e7e64
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run Veracode SCA
+      env:
+        SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
       uses: veracode/veracode-sca@v1.09
       with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        path: "./app"
+        create-issues: false       
+        update-advisor: true
+    #- name: Veracode Dependency Scanning
+    #    # You may pin to the exact commit or the version.
+        # uses: veracode/veracode-sca@d8ce4a08eebf1a6c5e7759c1dc53c1172a3e7e64
+    #  uses: veracode/veracode-sca@v1.09
+    #  with:
           # Authorization token to query and create issues
-        github_token: $'{{ secret.GIT_TOKEN }}'
-        srcclr_api_token: $'{{ secret.SRCCLR_API_TOKEN }}'
+    #    github_token: $'{{ secret.GIT_TOKEN }}'
+    #    srcclr_api_token: $'{{ secret.SRCCLR_API_TOKEN }}'
           # 
-        quick: false # optional, default is false
+    #    quick: false # optional, default is false
           # Show update advisor
-        update_advisor: true # optional, default is false
+     #   update_advisor: true # optional, default is false
           # A git URL to work with in case the scan is not for the current repository
          # url: # optional, default is 
           # The minimum CVSS value for vulnerability to be added as an issue
