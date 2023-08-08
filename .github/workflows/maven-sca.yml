@@ -48,11 +48,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Run Veracode SCA
-      
       env:
         SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
-      uses: veracode/veracode-sca@v1.09
-      with:
+      uses: actions/setup-java@v1
+      with: 
+        java-version: 14
         github_token: ${{ secrets.GIT_TOKEN }}
         path: ./app/
         #create-issues: false       
