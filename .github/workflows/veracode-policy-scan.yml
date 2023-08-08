@@ -1,6 +1,9 @@
 name: Veracode Static Policy Scanner
 
 on:
+  push:
+  pull_request:
+    branches: [main]
   workflow_call:
     inputs:
       profile_name:
