@@ -1,6 +1,9 @@
 name: Veracode Static Pipeline Scanner
 
 on:
+  push:
+  pull_request:
+    branches: [main]
   workflow_call:
   
 jobs:
@@ -29,7 +32,7 @@ jobs:
         id: pipeline-scan
         uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
         with:
-          vid: ${{ secrets.API_ID }}
-          vkey: ${{ secrets.API_KEY }}
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
           file: ./veracode_artifact_directory/${{ env.veracode_artifact }}
           fail_build: true
