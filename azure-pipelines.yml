@@ -21,3 +21,21 @@ steps:
     dockerfile: $(Build.SourcesDirectory)/Dockerfile
     tags: |
       verademo:$(Build.BuildId)
+- task: CmdLine@2
+  displayName: Veracode Container Scan & SBOM
+  inputs:
+    # Install Veracode-cli and authenticate 
+    script: |
+      curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+  env: 
+    VERACODE_API_KEY_ID: $(VERACODE_API_ID)
+    VERACODE_API_KEY_SECRET: $(VERACODE_API_KEY)
+- task: CmdLine@2
+  displayName: Scan & SBOM 
+  inputs:
+    # Install Veracode-cli and authenticate 
+    script: |
+      ./veracode scan --source verademo:$(Build.BuildId) --type image --format table
+  env: 
+    VERACODE_API_KEY_ID: $(VERACODE_API_ID)
+    VERACODE_API_KEY_SECRET: $(VERACODE_API_KEY)
