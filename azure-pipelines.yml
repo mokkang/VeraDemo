@@ -1,42 +1,23 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-# This is an example of using VeraDemo Java test application with the Veracode Static Pipeline scanner.  A Veracode subscription is required.
 trigger:
 - main
+
+resources:
+  repositories:
+  - repository: verademo-dont
+    type: github
+    name: m4ckdaddy/verademo-dont
+    endpoint: mokkang
+
 pool:
   vmImage: 'ubuntu-latest'
-steps:
-- task: Maven@3
-  displayName: Build with Maven
-  inputs:
-    mavenPomFile: 'app/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-- task: Bash@3
-  displayName: Veracode Pipeline
-  inputs:
-    targetType: 'inline'
-    script: |
-      curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-      unzip -o pipeline-scan-LATEST.zip
-      java -jar pipeline-scan.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -f /home/vsts/work/1/s/app/target/verademo.war || true
-- publish: $(System.DefaultWorkingDirectory)/results.json
-  artifact: VeracodeBaseline
 
-- task: Bash@2
-  displayName: Veracode UploadAndScan
+steps:
+- checkout: mokkang/verademo-dont
+
+- task: Docker@2
+  displayName: Build Docker image
   inputs:
-    targetType: 'inline'
-    script: | 
-      curl -sSO https://search.maven.org/remotecontent?filepath=com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/22.6.10.2/vosp-api-wrappers-java-22.6.10.2-dist.zip 
-      unzip -o vosp-api-wrappers-java/22.6.10.2/vosp-api-wrappers-java-22.6.10.2-dist.zip
-      java -jar ./vosp-api-wrappers-java/22.6.10.2-dist.zip -action UploadAndScan -vid=$VID -vkey=$VKEY -filepath ~/git/veradessss/app/target/verademo.war -createprofile=true -appname="Azure-verademo" -version 1337
-- publish: $(System.DefaultWorkingDirecotry)/verademo.war
-  artifact: Veracode Binaries
+    command: build
+    dockerfile: $(Build.SourcesDirectory)/Dockerfile
+    tags: |
+      myimage:$(Build.BuildId)
