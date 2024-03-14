@@ -26,6 +26,8 @@ steps:
   inputs:
     # Install Veracode-cli and authenticate 
     script: |
+      docker login -u mokkang -p $(DOCKERPSWD)
+      docker pull verademo:$(Build.BuildId)
       curl -fsS https://tools.veracode.com/veracode-cli/install | sh
       ./veracode scan --source verademo:$(Build.BuildId) --type image
   env: 
