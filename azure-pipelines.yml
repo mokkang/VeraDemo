@@ -3,16 +3,16 @@ trigger:
 
 resources:
   repositories:
-  - repository: verademo-dont
+  - repository: verademo
     type: github
-    name: mokkang/verademo-dont
+    name: mokkang/verademo
     endpoint: github
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- checkout: https://github.com/mokkang/verademo-dont
+- checkout: verademo
 
 - task: Docker@2
   displayName: Build Docker image
@@ -20,4 +20,4 @@ steps:
     command: build
     dockerfile: $(Build.SourcesDirectory)/Dockerfile
     tags: |
-      myimage:$(Build.BuildId)
+      verademo:$(Build.BuildId)
